@@ -15,6 +15,26 @@
   </div>
 
 <script>
+
+  const speed = document.querySelector('.speed');
+  const bar = speed.querySelector('.speed-bar');
+  const video = document.querySelector('.flex');
+
+  speed.addEventListener('mousemove', function(e) {
+    const y = e.pageY - this.offsetTop;
+     const percent = y / this.offsetHeight;
+     const min = 0.4;
+     const max = 4;
+     const height = Math.round(percent * 100) + '%';
+     bar.style.height = height;
+     //since we don't want the min to be 0 and the max to be 1. At 0% height it'll be 0.4 and at 100% height it'll be 4. So we take our percent, multiply it by max - min, and then add min to it.
+     const playbackRate = percent * (max - min) + min;
+     // toFixed() method formats a number using fixed-point notation, in this case, 2 decimal places. 
+     bar.textContent = playbackRate.toFixed(2) + 'x';
+     // playbackRate is a property on the video element that controls the speed at which the video plays. We're now taking the playbackRate value and setting it to the video's playbackRate property.
+    video.playbackRate = playbackRate;
+  });
+
 </script>
 </body>
 </html>
